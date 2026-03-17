@@ -10,6 +10,7 @@ import io.cucumber.testng.CucumberOptions;
 					"html:reports/cucumber-html-report"},
 			monochrome = true,
 			dryRun = false
+			
 )
 
 	public class RunnerClass extends AbstractTestNGCucumberTests{

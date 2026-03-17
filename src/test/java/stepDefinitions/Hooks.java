@@ -1,7 +1,12 @@
 package stepDefinitions;
 
 import java.io.IOException;
+import java.time.Duration;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
@@ -28,6 +33,7 @@ public class Hooks {
 		}
 		BaseClass.initialiseBrowser();
 		//BaseClass.initializeExtentReport();
+
 		BaseClass.test=BaseClass.extent.createTest(scenario.getName());
 	}
 	

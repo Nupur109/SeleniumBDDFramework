@@ -17,6 +17,8 @@ public class LoginStepDef {
 	public void user_is_on_the_login_page() {
 		String title = BaseClass.driver.getTitle();
 		Assert.assertEquals(title, "Swag Labs");
+		BaseClass.test.info("User is on the login page");
+		
 		
 	}
 				
@@ -28,6 +30,7 @@ public class LoginStepDef {
 		String pwd=BaseClass.prop.getProperty("password");
 		login.enterUsername(uname);
 		login.enterPassword(pwd);
+		BaseClass.test.info("User enters  valid username and password");
 	 }
 	
 	
@@ -35,6 +38,7 @@ public class LoginStepDef {
 	public void user_clicks_on_login_button() {
 	   
 		login.clickLoginbutton();
+		BaseClass.test.info("User clicks on login button");
 	}
 	
 	@Then("User should be navigated to the product page")
@@ -42,7 +46,7 @@ public class LoginStepDef {
 	   
 		String url=BaseClass.driver.getCurrentUrl();
 		Assert.assertEquals(url, "https://www.saucedemo.com/inventory.html");
-		
+		BaseClass.test.info("User is navigated to the product page");
 	}
 
 	@When("User enters invalid username and password")
@@ -52,6 +56,8 @@ public class LoginStepDef {
 		String pwd=BaseClass.prop.getProperty("invalid_pwd");
 		login.enterUsername(uname);
 		login.enterPassword(pwd);
+		BaseClass.test.info("User enters invalid username and password");
+
 	}
 	
 	
@@ -60,6 +66,10 @@ public class LoginStepDef {
 	    String errorMessage=login.getErrorMessage();
 	    
 	    Assert.assertEquals(errorMessage, "Epic sadface: Username and password do not match any user in this service");
+	    
+		BaseClass.test.info("User see an error message : " + errorMessage);
+
 	    		}
+
 
 }

@@ -5,11 +5,13 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Properties;
 
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -34,8 +36,16 @@ public class BaseClass {
 		String browser=prop.getProperty("browser");
 
 		if (browser.equalsIgnoreCase("chrome")) {
-			driver=new ChromeDriver();
-		}
+			//driver=new ChromeDriver();
+			HashMap<String, Object> prefs = new HashMap<>();
+			prefs.put("credentials_enable_service", false);
+			prefs.put("profile.password_manager_enabled", false);
+			ChromeOptions options = new ChromeOptions();
+			options.setExperimentalOption("prefs", prefs);
+			options.addArguments("--disable-notifications");
+			options.addArguments("--disable-popup-blocking");
+			options.addArguments("--incognito");
+			driver = new ChromeDriver(options);		}
 
 		else if  (browser.equalsIgnoreCase("firefox")){
 			driver=new FirefoxDriver();
