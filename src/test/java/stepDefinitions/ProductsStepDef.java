@@ -26,7 +26,7 @@ public class ProductsStepDef {
 	@Then("User should see the products on the page")
 	public void user_should_see_the_products_on_the_page() {
 
-		products.isProductsDisplayed();
+		Assert.assertTrue(products.isProductsDisplayed(),"The products are not displayed");
 		BaseClass.test.info("User see the products on the landing page");
 
 	}
@@ -34,12 +34,15 @@ public class ProductsStepDef {
 	@Then("Each product should display image")
 	public void each_product_should_display_image() {
 		products.isProductImagesDisplayed();
+		Assert.assertTrue(products.isProductImagesDisplayed(),"The product images are not displayed");
 		BaseClass.test.info("User see image for each product");
 	}
 
 	@Then("Each product should display name")
 	public void each_product_should_display_name() {
 		products.isProductNamesDisplayed();
+		Assert.assertTrue(products.isProductNamesDisplayed(),"The product names are not displayed");
+
 		BaseClass.test.info("User see name for each product");
 
 	}
@@ -47,6 +50,8 @@ public class ProductsStepDef {
 	@Then("Each product should display price")
 	public void each_product_should_display_price() {
 		products.isProductPricesDisplayed();
+		Assert.assertTrue(products.isProductPricesDisplayed(),"The product prices are not displayed");
+
 		BaseClass.test.info("User see price for each product");
 
 		
@@ -55,6 +60,8 @@ public class ProductsStepDef {
 	@Then("Each product should display Add to Cart button")
 	public void each_product_should_display_add_to_cart_button() {
 		products.isProductAddToCartButtonDisplayed();
+		Assert.assertTrue(products.isProductAddToCartButtonDisplayed(),"The product Add To Cart buttons are not displayed");
+
 		BaseClass.test.info("User see Add to Cart button for each product");
 
 	}
@@ -62,6 +69,8 @@ public class ProductsStepDef {
 	@Given("User should see sort dropdown")
 	public void user_should_see_sort_dropdown() {
 		products.isSortDropdownDisplayed();
+		Assert.assertTrue(products.isSortDropdownDisplayed(),"The sort dropdown is not displayed");
+
 		BaseClass.test.info("User see sort dropdown on the page");
 
 	}
