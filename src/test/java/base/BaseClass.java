@@ -37,13 +37,13 @@ public class BaseClass {
 
 		if (browser.equalsIgnoreCase("chrome")) {
 			//driver=new ChromeDriver();
-			HashMap<String, Object> prefs = new HashMap<>();
-			prefs.put("credentials_enable_service", false);
-			prefs.put("profile.password_manager_enabled", false);
+//			HashMap<String, Object> prefs = new HashMap<>();
+//			prefs.put("credentials_enable_service", false);
+//			prefs.put("profile.password_manager_enabled", false);
 			ChromeOptions options = new ChromeOptions();
-			options.setExperimentalOption("prefs", prefs);
-			options.addArguments("--disable-notifications");
-			options.addArguments("--disable-popup-blocking");
+//			options.setExperimentalOption("prefs", prefs);
+//			options.addArguments("--disable-notifications");
+//			options.addArguments("--disable-popup-blocking");
 			options.addArguments("--incognito");
 			driver = new ChromeDriver(options);		}
 
@@ -57,7 +57,7 @@ public class BaseClass {
 		}
 
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		driver.get(prop.getProperty("url"));
 
 	}

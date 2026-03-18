@@ -1,4 +1,5 @@
 package stepDefinitions;
+import java.time.Duration;
 import java.util.List;
 
 import org.testng.Assert;
@@ -9,6 +10,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pageObjects.ProductsPageObj;
+import utils.Utility;
 
 public class ProductsStepDef {
 
@@ -31,23 +33,33 @@ public class ProductsStepDef {
 
 	}
 
-	@Then("Each product should display image")
+	@Then("Each product should display the product image")
 	public void each_product_should_display_image() {
 		products.isProductImagesDisplayed();
 		Assert.assertTrue(products.isProductImagesDisplayed(),"The product images are not displayed");
 		BaseClass.test.info("User see image for each product");
 	}
 
-	@Then("Each product should display name")
-	public void each_product_should_display_name() {
+	@Then("Each product should display the product name")
+	public void each_product_should_display_the_product_name() {
 		products.isProductNamesDisplayed();
 		Assert.assertTrue(products.isProductNamesDisplayed(),"The product names are not displayed");
 
 		BaseClass.test.info("User see name for each product");
 
 	}
+	
+	@Then("Each product should display the product decription")
+	public void each_product_should_display_description() {
+		products.isProductDescDisplayed();
+		Assert.assertTrue(products.isProductDescDisplayed(),"The product description are not displayed");
 
-	@Then("Each product should display price")
+		BaseClass.test.info("User see description for each product");
+
+	}
+
+
+	@Then("Each product should display the product price")
 	public void each_product_should_display_price() {
 		products.isProductPricesDisplayed();
 		Assert.assertTrue(products.isProductPricesDisplayed(),"The product prices are not displayed");
@@ -101,16 +113,34 @@ public class ProductsStepDef {
 
 	}
 
-	@Then("Cart count should show {string}")
-	public void cart_count_should_show(String expectedCount) {
-		String actualCount=products.getCartBadgeValue();
+	@Then("Cart count should show {int}")
+	public void cart_count_should_show(int expectedCount) {
+		int actualCount=products.getCartBadgeValue();
 		Assert.assertEquals(actualCount, expectedCount);
 		BaseClass.test.info("Cart count shows : "+expectedCount);
 
 	}
+	
+	@When("User adds {int} products to the cart")
+	public void user_adds_products_to_the_cart(Integer count) throws InterruptedException {
+		products.addMultipleItemstoCart(count);
+		BaseClass.test.info("User adds "+count+" products to the cart");
 
-	@When("User removes the product from cart")
-	public void user_removes_the_product_from_cart() throws InterruptedException {
+	}
+	
+	@Then("Cart badge should display {int}")
+	public void cart_badge_should_display(Integer value) {
+		int cartBadgeValue=products.getCartBadgeValue();
+		Assert.assertEquals(cartBadgeValue, value);
+		BaseClass.test.info("Cart badge displays " + value);
+
+	}
+
+
+	@When("User clicks on the remove button")
+	public void user_clicks_on_the_remove_button() throws InterruptedException {
+		//Thread.sleep(Duration.ofSeconds(3));
+
 		products.clickRemove();
 		BaseClass.test.info("Product is removed from cart");
 
@@ -118,8 +148,8 @@ public class ProductsStepDef {
 
 	@Then("Cart count should not be displayed")
 	public void cart_count_should_not_be_displayed() {
-		Assert.assertFalse(products.isCartBadgePresent(),"Cart count still visible");
-		BaseClass.test.info("Cart badge is not displayed");
+		Assert.assertTrue(products.isCartBadgeRemoved(),"Cart count still visible");
+		BaseClass.test.info("Cart badge is removed");
 
 	}
 
@@ -138,5 +168,20 @@ public class ProductsStepDef {
 
 	}
 
+	@When("User clicks on the shopping cart link")
+	public void user_clicks_on_the_shopping_cart_link() {
+		products.clickCartLink();
+		BaseClass.test.info("Shopping cart link is clicked");
 
+		
+	}
+	
+	@Then("User should be navigated to the cart page")
+	public void user_should_be_navigated_to_the_cart_page() {
+		Assert.assertEquals(Utility.getPageURL(), "https://www.saucedemo.com/cart.html");
+		BaseClass.test.info("User is navigated to the cart page");
+
+	}
+	
+	
 }

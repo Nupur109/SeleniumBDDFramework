@@ -1,5 +1,6 @@
 package pageObjects;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +26,12 @@ public class ProductsPageObj {
 
 	@FindBy(className = "inventory_item_name")
 	List<WebElement> productNames;
+	
+	@FindBy(className="inventory_item_desc")
+	List<WebElement>productDescription;
 
 	@FindBy(xpath = "//button[text()='Add to cart']")
 	List<WebElement> addToCartButtons;
-
-
-//	@FindBy(xpath = "//button[text()='Add to cart']")
-//	WebElement addToCartButton;
 
 	@FindBy(className = "inventory_item_price")
 	List<WebElement> productPrices;
@@ -41,11 +41,14 @@ public class ProductsPageObj {
 
 	@FindBy(xpath = "//button[text()='Remove']")
 	WebElement removeButton;
-
-//	@FindBy(className = "shopping_cart_badge")
-//	List<WebElement> cartBadge;
 	
+	@FindBy(className="shopping_cart_link")
+	WebElement cartLink;
+
 	By cartBadge=By.className("shopping_cart_badge");
+	
+	By addToCartBtn = By.xpath("//button[text()='Add to cart']");
+
 	
 	//initialization
 
@@ -77,6 +80,14 @@ public class ProductsPageObj {
 	public boolean isProductNamesDisplayed() {
 		for (WebElement name : productNames) {
 			if (!name.isDisplayed())
+				return false;
+		}
+		return true;
+	}
+	
+	public boolean isProductDescDisplayed() {
+		for (WebElement desc : productDescription) {
+			if (!desc.isDisplayed())
 				return false;
 		}
 		return true;
@@ -121,16 +132,6 @@ public class ProductsPageObj {
 		dropdown.selectByVisibleText(option);
 	}
 
-	public double getFirstProductPrice() {
-		String firstProductPrice= productPrices.getFirst().getText().replace("$", "");
-		return Double.parseDouble(firstProductPrice);
-	}
-
-	public double getLastProductPrice() {
-		String lastProductPrice= productPrices.getLast().getText().replace("$", "");
-		return Double.parseDouble(lastProductPrice);
-	}
-
 	public boolean comparePrices() {
 		for(int i =0; i<productPrices.size()-1;i++) {
 			if(Double.parseDouble(productPrices.get(i).getText().replace("$", "")) 
@@ -142,21 +143,42 @@ public class ProductsPageObj {
 	}
 
 	public void clickAddToCartButton() {
-		addToCartButtons.get(0).click();;
+		addToCartButtons.get(0).click();
+	}
+	
+	public String getFirstProductName() {
+		return productNames.get(0).getText();
+	}
+	
+	public String getFirstProductPrice() {
+		return productPrices.get(0).getText();
+	}
+	
+	public String getFirstProductDescription() {
+		return productDescription.get(0).getText();
+	}
+	
+	public void addMultipleItemstoCart(int count) throws InterruptedException {
+		for(int i=0;i<count;i++) {
+			BaseClass.driver.findElements(addToCartBtn).get(0).click();
+					}
 	}
 
-	public String getCartBadgeValue() {
-		return BaseClass.driver.findElement(cartBadge).getText();
+	public int getCartBadgeValue() {
+		return Integer.parseInt(BaseClass.driver.findElement(cartBadge).getText());
 	} 
 
 
 	public void clickRemove() {
 		removeButton.click();
 	}
-	public boolean isCartBadgePresent() {
-		return BaseClass.driver.findElements(cartBadge).size() > 0;
+	public boolean isCartBadgeRemoved() {
+		return BaseClass.driver.findElements(cartBadge).size() == 0;
 		
 	}
-
-
-}
+	
+	public void clickCartLink() {
+		cartLink.click();
+	}
+	
+	}
