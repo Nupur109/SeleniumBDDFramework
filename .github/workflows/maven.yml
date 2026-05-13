@@ -12,13 +12,13 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Java 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
       - name: Run Tests
-        run: mvn test -Dsurefire.suiteXmlFiles=testng.xml
+        run: mvn test -Dheadless=true -Dsurefire.suiteXmlFiles=testng.xml
