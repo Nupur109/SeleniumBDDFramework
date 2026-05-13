@@ -41,8 +41,8 @@ public class LoginStepDef {
 		BaseClass.test.info("User clicks on login button");
 	}
 	
-	@Then("User should be navigated to the product page")
-	public void user_should_be_navigated_to_the_product_page() {
+	@Then("User should be navigated to the products page")
+	public void user_should_be_navigated_to_the_products_page() {
 	   
 		String url=BaseClass.driver.getCurrentUrl();
 		Assert.assertEquals(url, "https://www.saucedemo.com/inventory.html");

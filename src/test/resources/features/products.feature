@@ -4,7 +4,7 @@ Feature: Products page functionalities of Sauce Demo application
     Given User is on the login page
     When User enters  valid username and password
     And User clicks on login button
-    Then User should be navigated to the product page
+    Then User should be navigated to the products page
 
   Scenario: Verify Products title on the products page
     Then User should see "Products" as the page title
@@ -35,7 +35,7 @@ Feature: Products page functionalities of Sauce Demo application
     
     
   Scenario: Verify Add to Cart button
-  When User clicks on the Add to Cart button
+  When User adds a product to the cart
   Then Cart count should show "1"
   
   

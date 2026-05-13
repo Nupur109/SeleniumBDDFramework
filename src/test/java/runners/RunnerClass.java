@@ -4,13 +4,14 @@ import io.cucumber.testng.CucumberOptions;
 
 	
 	@CucumberOptions(
-			features = {"src/test/resources/features/products.feature"},
+			features = {"src/test/resources/features/endToEndFlow.feature"},
 			glue = {"stepDefinitions"},
 			plugin = {"pretty",
 					"html:reports/cucumber-html-report"},
 			monochrome = true,
+		//tags="@testonly",
 			dryRun = false
-			
+						
 )
 
 	public class RunnerClass extends AbstractTestNGCucumberTests{

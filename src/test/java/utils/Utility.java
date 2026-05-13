@@ -1,5 +1,6 @@
 package utils;
 import base.BaseClass;
+import stepDefinitions.Hooks;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,5 +21,22 @@ public class Utility {
 		return destination;
 
 	}
-
+	
+	public static String getPageURL() {
+		return BaseClass.driver.getCurrentUrl();
+	}
+	
+		
+	//for adding error in extent report. dont push this code
+	public static void execute(Runnable step)
+	{
+		try {step.run();
+		}catch(Throwable t) {
+			BaseClass.test.fail(t);
+			throw t;
+		}
+	}
+	
+//	Utility.execute(() ->{
+//		cart.clickContinueShopping();}); write like this for the failed step to see error in extent report
 }

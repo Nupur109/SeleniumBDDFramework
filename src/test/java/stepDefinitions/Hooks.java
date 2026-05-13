@@ -1,14 +1,7 @@
 package stepDefinitions;
 
 import java.io.IOException;
-import java.time.Duration;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
 
 import base.BaseClass;
 import io.cucumber.java.After;
@@ -17,14 +10,7 @@ import io.cucumber.java.Scenario;
 import utils.Utility;
 
 public class Hooks {
-//
-//	@BeforeSuite
-//	
-//	public void setUpSuite() {
-//		BaseClass.initializeExtentReport();
-//
-//	}
-//	
+
 	@Before
 
 	public void setUp(Scenario scenario) throws IOException {
@@ -32,19 +18,17 @@ public class Hooks {
 			BaseClass.initializeExtentReport();
 		}
 		BaseClass.initialiseBrowser();
-		//BaseClass.initializeExtentReport();
-
 		BaseClass.test=BaseClass.extent.createTest(scenario.getName());
 	}
 	
 	@After
 
 	public void tearDown(Scenario scenario) throws IOException {
-
 		if (scenario.isFailed()) {
+		//	String errorMessage = scenario.getError().getMessage();
 			String screenshotPath = Utility.takeScreenshot(scenario.getName());
 			BaseClass.test.addScreenCaptureFromPath(screenshotPath);
-			BaseClass.test.fail("Test Failed!");
+			BaseClass.test.fail("Test Failed! ");
 		}
 		else
 		{
@@ -57,11 +41,4 @@ public class Hooks {
 
 	}
 	
-//	@AfterSuite
-//	
-//	public void tearDownSuite() {
-//		
-//		
-//	}
-
 }

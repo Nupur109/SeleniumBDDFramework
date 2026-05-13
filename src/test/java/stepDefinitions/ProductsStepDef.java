@@ -105,8 +105,8 @@ public class ProductsStepDef {
 
 	}
 
-	@When("User clicks on the Add to Cart button")
-	public void user_clicks_on_the_add_to_cart_button() throws InterruptedException {
+	@When("User adds a product to the cart")
+	public void user_add_a_product_to_cart() throws InterruptedException {
 
 		products.clickAddToCartButton();
 		BaseClass.test.info("User clicks on the Add to Cart button");

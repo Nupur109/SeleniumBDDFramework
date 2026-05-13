@@ -23,20 +23,20 @@ public class BaseClass {
 
 	public static WebDriver driver;
 	public static Properties prop;
-	public  static ExtentReports extent;
-	public static  ExtentTest  test;
-
+	public static ExtentReports extent;
+	public static ExtentTest test;
 
 	public static void initialiseBrowser() throws IOException {
-		FileInputStream fis=new FileInputStream(System.getProperty("user.dir")+"/src/test/resources/config/config.properties");
+		FileInputStream fis = new FileInputStream(
+				System.getProperty("user.dir") + "/src/test/resources/config/config.properties");
 
-		prop=new Properties();
+		prop = new Properties();
 		prop.load(fis);
 
-		String browser=prop.getProperty("browser");
+		String browser = prop.getProperty("browser");
 
 		if (browser.equalsIgnoreCase("chrome")) {
-			//driver=new ChromeDriver();
+			// driver=new ChromeDriver();
 //			HashMap<String, Object> prefs = new HashMap<>();
 //			prefs.put("credentials_enable_service", false);
 //			prefs.put("profile.password_manager_enabled", false);
@@ -45,15 +45,26 @@ public class BaseClass {
 //			options.addArguments("--disable-notifications");
 //			options.addArguments("--disable-popup-blocking");
 			options.addArguments("--incognito");
-			driver = new ChromeDriver(options);		}
 
-		else if  (browser.equalsIgnoreCase("firefox")){
-			driver=new FirefoxDriver();
+			// CI/CD
+
+			if (System.getProperty("headless", "false").equals("true")) {
+				options.addArguments("--headless");
+				options.addArguments("--no-sandbox");
+				options.addArguments("--disable-dev-shm-usage");
+				options.addArguments("--window-size=1920,1080");
+			}
+
+			driver = new ChromeDriver(options);
+		}
+
+		else if (browser.equalsIgnoreCase("firefox")) {
+			driver = new FirefoxDriver();
 
 		}
 
-		else if (browser.equalsIgnoreCase("edge")){
-			driver=new EdgeDriver();
+		else if (browser.equalsIgnoreCase("edge")) {
+			driver = new EdgeDriver();
 		}
 
 		driver.manage().window().maximize();
@@ -61,31 +72,30 @@ public class BaseClass {
 		driver.get(prop.getProperty("url"));
 
 	}
-	
-	
+
 	public static void quiteDriver() {
-		if (driver!=null) {
+		if (driver != null) {
 			driver.quit();
 		}
 	}
-	
+
 	public static void initializeExtentReport() {
-		String timestamp= new SimpleDateFormat("dd-MMM-yyyy_HH-mm-ss").format(new Date());
-		ExtentSparkReporter report=new ExtentSparkReporter(System.getProperty("user.dir")+"/reports/TestReport_"+ timestamp + ".html");
+		String timestamp = new SimpleDateFormat("dd-MMM-yyyy_HH-mm-ss").format(new Date());
+		ExtentSparkReporter report = new ExtentSparkReporter(
+				System.getProperty("user.dir") + "/reports/TestReport_" + timestamp + ".html");
 		report.config().setReportName("Automation test report");
 		report.config().setDocumentTitle("Test Results");
-		extent=new  ExtentReports();
+		extent = new ExtentReports();
 		extent.attachReporter(report);
 		extent.setSystemInfo("Tester", "Nupur");
 		extent.setSystemInfo("Environment", "QA");
-	
+
 	}
 
- public  static void flushReport() {
-	 if  (extent!=null)
-	 {
-		 extent.flush();
-	 }
-	 
- }
+	public static void flushReport() {
+		if (extent != null) {
+			extent.flush();
+		}
+
+	}
 }
